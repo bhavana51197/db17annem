@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  
+  h1= title
+  p Webapps Assignment 10
+  button(Type='button' class='btn btn-secondary' onclick='update()') Press Me
+  div#target Display
+  - var url  = 'elephant';
+  a(href='/' + url) elephants
+  
+  script.
+    var client_count = 0
+    function update(){
+      client_count++;
+      console.log(client_count)
+      document.getElementById("target").innerHTML = "Value now " +client_count;
+    }

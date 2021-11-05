@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  h1= title
+  -
+    const elephants = [
+      {
+      'Name': "Babar",
+      'Cost': "$15000",
+      'Weight':"108"
+      },
+      {
+      'Name': "Dumbo",
+      'Cost': "$18000",
+      'Weight':"128"
+      },
+      {
+      'Name': "Horton",
+      'Cost': "$19000",
+      'Weight':"118"
+      },
+      ]
+  div(class="container-fluid")
+  div(class="row")
+    each elephant,index in elephants
+      div(class="col-sm-2 " onclick=`buy(${index})`) #{elephant.Name} - #{elephant.Cost} - #{elephant.Weight} 
+  script.
+      function buy(itemNo)
+      {
+        alert(`You purchased Item ${itemNo+1}`)
+      }     
+    
