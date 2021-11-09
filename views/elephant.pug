@@ -2,24 +2,7 @@ extends layout
 
 block content
   h1= title
-  -
-    const elephants = [
-      {
-      'Name': "Babar",
-      'Cost': "$15000",
-      'Weight':"108"
-      },
-      {
-      'Name': "Dumbo",
-      'Cost': "$18000",
-      'Weight':"128"
-      },
-      {
-      'Name': "Horton",
-      'Cost': "$19000",
-      'Weight':"118"
-      },
-      ]
+  - let elephants=results
   div(class="container-fluid")
   div(class="row")
     each elephant,index in elephants
