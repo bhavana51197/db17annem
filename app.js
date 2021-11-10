@@ -68,7 +68,7 @@ mongoose.connect(connectionString,
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/resource/elephant', elephantRouter);
+app.use('/elephant', elephantRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
 app.use('/resource', resourceRouter);
