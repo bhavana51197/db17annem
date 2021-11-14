@@ -56,9 +56,17 @@ exports.elephant_view_all_Page = async function(req, res) {
         res.status(500);
     }
 };
-// Handle Costume delete form on DELETE.
-exports.elephant_delete = function (req, res) {
-    res.send('NOT IMPLEMENTED: Elephant delete DELETE ' + req.params.id);
+// Handle Elephant delete on DELETE.
+exports.elephant_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Elephant.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
 };
 // Handle Elephant update form on PUT.
 exports.elephant_update_put = async function(req, res) {

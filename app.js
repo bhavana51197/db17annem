@@ -45,7 +45,11 @@ async function recreateDB() {
   });
 }
 let reseed = false;
-if (reseed) { recreateDB(); }
+
+if (reseed == false) {
+  recreateDB();
+ 
+}
 var app = express();
 
 // view engine setup
@@ -63,7 +67,7 @@ const connectionString = process.env.MONGO_CON
 mongoose = require('mongoose');
 mongoose.connect(connectionString,
   {
-    useNewUrlParser: true, useUnifiedTopology: true 
+    useNewUrlParser: true, useUnifiedTopology: true
   });
 
 app.use('/', indexRouter);
