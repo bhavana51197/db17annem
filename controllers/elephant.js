@@ -5,7 +5,7 @@ var Elephant = require('../models/elephant');
 // List of all Elephants
 exports.elephant_list = async function (req, res) {
     try {
-        theElephants = await elephants.find();
+        theElephants = await Elephant.find();
         res.send(theElephants);
     }
     catch (err) {
@@ -14,9 +14,16 @@ exports.elephant_list = async function (req, res) {
     }
 };
 // for a specific Elephant.
-exports.elephant_detail = function (req, res) {
-    res.send('NOT IMPLEMENTED: Elephant detail: ' + req.params.id);
-};
+exports.elephant_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try {
+    result = await Elephant.findById( req.params.id)
+    res.send(result)
+    } catch (error) {
+    res.status(500)
+    res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+   };
 // Handle Costume create on POST.
 exports.elephant_create_post = async function (req, res) {
     console.log(req.body)
@@ -53,8 +60,24 @@ exports.elephant_view_all_Page = async function(req, res) {
 exports.elephant_delete = function (req, res) {
     res.send('NOT IMPLEMENTED: Elephant delete DELETE ' + req.params.id);
 };
-// Handle Costume update form on PUT.
-exports.elephant_update_put = function (req, res) {
-    res.send('NOT IMPLEMENTED: Elephant update PUT' + req.params.id);
+// Handle Elephant update form on PUT.
+exports.elephant_update_put = async function(req, res) {
+ console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+ try {
+ let toUpdate = await Elephant.findById( req.params.id)
+ // Do updates of properties
+ if(req.body.Name)
+ toUpdate.Name = req.body.Name;
+ if(req.body.Cost) toUpdate.Cost = req.body.Cost;
+ if(req.body.Weight) toUpdate.Weight = req.body.Weight;
+ let result = await toUpdate.save();
+ console.log("Sucess " + result)
+ res.send(result)
+ } catch (err) {
+ res.status(500)
+ res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+ }
 };
 
