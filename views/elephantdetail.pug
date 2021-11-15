@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to show
+  else
+  - let elephantid = toShow._id
+  - let elephantName = toShow.Name
+  - let elephantCost = toShow.Cost
+  - let elephantWeight = toShow.Weight
+  form(id='carform',action= actionid, method= 'GET' )
+  div
+    div.row
+      div(class='elephantAttr mr-3') Elephant Id is:
+      div #{elephantid}
+    div.row
+      div(class='elephantAttr mr-3') Elephant Type is:
+      div #{elephantName}
+    div.row
+      div(class='elephantAttr mr-3') Elephant Size is:
+      div #{elephantCost}
+    div.row
+      div(class='elephantAttr mr-3') Elephant Cost is:
+      div #{elephantWeight}

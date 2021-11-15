@@ -46,7 +46,7 @@ async function recreateDB() {
 }
 let reseed = false;
 
-if (reseed == false) {
+if (reseed == true) {
   recreateDB();
  
 }

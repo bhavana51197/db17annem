@@ -14,16 +14,16 @@ exports.elephant_list = async function (req, res) {
     }
 };
 // for a specific Elephant.
-exports.elephant_detail = async function(req, res) {
+exports.elephant_detail = async function (req, res) {
     console.log("detail" + req.params.id)
     try {
-    result = await Elephant.findById( req.params.id)
-    res.send(result)
+        result = await Elephant.findById(req.params.id)
+        res.send(result)
     } catch (error) {
-    res.status(500)
-    res.send(`{"error": document for id ${req.params.id} not found`);
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
     }
-   };
+};
 // Handle Costume create on POST.
 exports.elephant_create_post = async function (req, res) {
     console.log(req.body)
@@ -47,7 +47,7 @@ exports.elephant_create_post = async function (req, res) {
 
 // VIEWS
 // Handle a show all view
-exports.elephant_view_all_Page = async function(req, res) {
+exports.elephant_view_all_Page = async function (req, res) {
     try {
         theElephants = await elephant.find();
         res.render('elephant', { title: 'Elephant Search Results', results: theElephants });
@@ -57,35 +57,60 @@ exports.elephant_view_all_Page = async function(req, res) {
     }
 };
 // Handle Elephant delete on DELETE.
-exports.elephant_delete = async function(req, res) {
+exports.elephant_delete = async function (req, res) {
     console.log("delete " + req.params.id)
     try {
-    result = await Elephant.findByIdAndDelete( req.params.id)
-    console.log("Removed " + result)
-    res.send(result)
+        result = await Elephant.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
     } catch (err) {
-    res.status(500)
-    res.send(`{"error": Error deleting ${err}}`);
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
     }
 };
 // Handle Elephant update form on PUT.
-exports.elephant_update_put = async function(req, res) {
- console.log(`update on id ${req.params.id} with body
+exports.elephant_update_put = async function (req, res) {
+    console.log(`update on id ${req.params.id} with body
 ${JSON.stringify(req.body)}`)
- try {
- let toUpdate = await Elephant.findById( req.params.id)
- // Do updates of properties
- if(req.body.Name)
- toUpdate.Name = req.body.Name;
- if(req.body.Cost) toUpdate.Cost = req.body.Cost;
- if(req.body.Weight) toUpdate.Weight = req.body.Weight;
- let result = await toUpdate.save();
- console.log("Sucess " + result)
- res.send(result)
- } catch (err) {
- res.status(500)
- res.send(`{"error": ${err}: Update for id ${req.params.id}
+    try {
+        let toUpdate = await Elephant.findById(req.params.id)
+        // Do updates of properties
+        if (req.body.Name)
+            toUpdate.Name = req.body.Name;
+        if (req.body.Cost) toUpdate.Cost = req.body.Cost;
+        if (req.body.Weight) toUpdate.Weight = req.body.Weight;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id}
 failed`);
- }
+    }
 };
 
+// Handle a show one view with id specified by query
+exports.elephant_view_one_Page = async function (req, res) {
+    console.log("single view for id " + req.query.id)
+    try {
+        result = await Elephant.findById(req.query.id)
+        res.render('elephantdetail',
+            { title: 'Elephant Detail', toShow: result });
+    }
+    catch (err) {
+        res.status(500)
+    }
+};
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.elephant_create_Page = function (req, res) {
+    console.log("create view")
+    try {
+        res.render('elephantcreate', { title: 'Elephant Create' });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
