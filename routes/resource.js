@@ -22,5 +22,9 @@ router.get('/elephant', elephant_controller.elephant_list);
 router.get('/detail', elephant_controller.elephant_view_one_Page);
 /* GET create elephant page */
 router.get('/create', elephant_controller.elephant_create_Page);
+/* GET create update page */
+router.get('/update', elephant_controller.elephant_update_Page);
+/* GET delete costume page */
+router.get('/delete', elephant_controller.elephant_delete_Page);
 
 module.exports = router;

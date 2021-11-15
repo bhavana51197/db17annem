@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1= title
+
+  - let elephantid = toShow._id
+  - let elephantName = toShow.Name
+  - let elephantCost = toShow.Cost
+  - let elephantWeight = toShow.Weight
+  
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{elephantid}
+  - let actionid = "/resource/elephant/" + elephantid
+  form(id='ElephantForm', action= actionid, method="GET")
+    div.form-group
+        label.elephantAttr(for='Name') Elephant Name
+        input#elephantName(type='text', name='Name', value= Name )
+    div.form-group
+        label.elephantAttr(for='cost') Elephant Cost
+        input#cost(type='number', name='Cost', value= Cost )
+    div.form-group
+        label.elephantAttr(for='weight') Elephant Weight
+        input#weight(type='number', name='Weight', value= Weight )
+    input(type="submit")
+
+  script.
+    document.forms['ElephantForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        //resp = "sample";
+        console.log("sample")
+        alert("Update failed " + error )
+      });
+    });
