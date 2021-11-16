@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 // Require controller modules
 var api_controller = require('../controllers/api');
 var elephant_controller = require('../controllers/elephant');
@@ -18,13 +19,22 @@ router.put('/elephant/:id', elephant_controller.elephant_update_put);
 router.get('/elephant/:id', elephant_controller.elephant_detail);
 // GET request for list of all elephant items.
 router.get('/elephant', elephant_controller.elephant_list);
+
+const secured = (req, res, next) => {
+    if (req.user) {
+        return next();
+    }
+    req.session.returnTo = req.originalUrl;
+    res.redirect("/login");
+}
+
 /* GET detail costume page */
-router.get('/detail', elephant_controller.elephant_view_one_Page);
+router.get('/detail', secured , elephant_controller.elephant_view_one_Page);
 /* GET create elephant page */
-router.get('/create', elephant_controller.elephant_create_Page);
+router.get('/create', secured , elephant_controller.elephant_create_Page);
 /* GET create update page */
-router.get('/update', elephant_controller.elephant_update_Page);
+router.get('/update', secured , elephant_controller.elephant_update_Page);
 /* GET delete costume page */
-router.get('/delete', elephant_controller.elephant_delete_Page);
+router.get('/delete', secured , elephant_controller.elephant_delete_Page);
 
 module.exports = router;
