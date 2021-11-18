@@ -3,7 +3,7 @@ extends layout
 block content
   h1= title
 
-  form(id='ElephantForm', action="/resource/elephant", method="POST")
+  form(id='ElephantForm', action="/elephant", method="POST")
     div.form-group
         label.elephantLabel(for='elephantname') Elephant Name
         input#elephantname(type='text', name='Name')

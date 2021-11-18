@@ -4,7 +4,7 @@ block content
   h1= title
   - let elephants=results
   div(class="container-fluid")
-  div(class="row")
+  div(class="row m-1")
     each elephant,index in elephants
       div(class="col-sm-2 " onclick=`buy(${index})`) #{elephant.Name} - #{elephant.Cost} - #{elephant.Weight} 
   script.

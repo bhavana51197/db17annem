@@ -28,13 +28,5 @@ const secured = (req, res, next) => {
     res.redirect("/login");
 }
 
-/* GET detail costume page */
-router.get('/detail', secured , elephant_controller.elephant_view_one_Page);
-/* GET create elephant page */
-router.get('/create', secured , elephant_controller.elephant_create_Page);
-/* GET create update page */
-router.get('/update', secured , elephant_controller.elephant_update_Page);
-/* GET delete costume page */
-router.get('/delete', secured , elephant_controller.elephant_delete_Page);
 
 module.exports = router;
