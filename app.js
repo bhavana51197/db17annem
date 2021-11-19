@@ -3,8 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var elephant = require("./models/elephant");
 
 var indexRouter = require('./routes/index');
@@ -62,6 +60,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 passport.use(new LocalStrategy(
   function(username, password, done) {
       Account.findOne({ username: username }, function(err, user) {
@@ -82,6 +84,13 @@ passport.use(new LocalStrategy(
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+// passport config
+// Use the existing connection
+// The Account model
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = app;
@@ -98,14 +107,6 @@ app.use('/elephant', elephantRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
 app.use('/resource', resourceRouter);
-
-// passport config
-// Use the existing connection
-// The Account model
-var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

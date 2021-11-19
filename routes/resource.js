@@ -27,6 +27,4 @@ const secured = (req, res, next) => {
     req.session.returnTo = req.originalUrl;
     res.redirect("/login");
 }
-
-
 module.exports = router;
