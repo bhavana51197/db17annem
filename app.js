@@ -17,27 +17,27 @@ async function recreateDB() {
   // Delete everything
   await elephant.deleteMany();
   let instance1 = new elephant({
-    Name: "Rouge",
+    Name: "Sam",
     Cost: "2200",
-    Weight: "24000"
+    Weight: "240"
   });
   instance1.save(function (err, doc) {
     if (err) return console.error(err);
     console.log("First object saved")
   });
   let instance2 = new elephant({
-    Name: "Ghost",
+    Name: "Pam",
     Cost: "2900",
-    Weight: "29000"
+    Weight: "290"
   });
   instance2.save(function (err, doc) {
     if (err) return console.error(err);
     console.log("Second object saved")
   });
   let instance3 = new elephant({
-    Name: "Santa Fe",
+    Name: "Dan",
     Cost: "9200",
-    Weight: "10000"
+    Weight: "100"
   });
   instance3.save(function (err, doc) {
     if (err) return console.error(err);
@@ -45,7 +45,7 @@ async function recreateDB() {
   });
 }
 let reseed = false;
-
+recreateDB();
 if (reseed == true) {
   recreateDB();
  

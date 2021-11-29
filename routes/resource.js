@@ -20,11 +20,4 @@ router.get('/elephant/:id', elephant_controller.elephant_detail);
 // GET request for list of all elephant items.
 router.get('/elephant', elephant_controller.elephant_list);
 
-const secured = (req, res, next) => {
-    if (req.user) {
-        return next();
-    }
-    req.session.returnTo = req.originalUrl;
-    res.redirect("/login");
-}
 module.exports = router;

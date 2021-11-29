@@ -4,11 +4,17 @@ block content
   h1= title
   - let elephants=results
   div(class="container-fluid")
+    - let destination = `dispatch("/elephant/create")`
+    button.btn( class="btn-secondary"  class="m-1" class="btn-toolbar", onclick= destination) Create
     div(class="row m-1")
       each elephant in elephants
         - let destination = `dispatch(\"/elephant/update?id=${elephant._id}\")`
+        - let delete_ = `dispatch(\"/elephant/delete?id=${elephant._id}\")`
+        - let detail = `dispatch(\"/elephant/detail?id=${elephant._id}\")`
         div(class="col-sm-2 "  class="m-1")  #{elephant.Name} - #{elephant.Company} - #{elephant.Price}
           button.btn( class="btn-primary"  class="m-1" class="btn-toolbar", onclick= destination) Update
+          button.btn( class="btn-danger" class="m-1" class="btn-toolbar", onclick= delete_) Delete
+          button.btn( class="btn-info" class="m-1" class="btn-toolbar", onclick= detail) Detail
   script.
       function dispatch(path)
       {

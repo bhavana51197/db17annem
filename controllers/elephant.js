@@ -75,8 +75,7 @@ ${JSON.stringify(req.body)}`)
     try {
         let toUpdate = await Elephant.findById(req.params.id)
         // Do updates of properties
-        if (req.body.Name)
-            toUpdate.Name = req.body.Name;
+        if (req.body.Name) toUpdate.Name = req.body.Name;
         if (req.body.Cost) toUpdate.Cost = req.body.Cost;
         if (req.body.Weight) toUpdate.Weight = req.body.Weight;
         let result = await toUpdate.save();
@@ -120,12 +119,19 @@ exports.elephant_create_Page = function (req, res) {
 exports.elephant_update_Page = async function (req, res) {
     console.log("update view for item " + req.query.id)
     try {
-        let result = await Elephant.findById(req.query.id)
-        res.render('elephantupdate', { title: 'Elephant Update', toShow: result });
-    }
-    catch (err) {
+        result = await Elephant.findById(req.query.id)
+        console.log(result + "update doc")
+            // Do updates of properties
+            res.render('elephantcreate', { title: 'Elephant Create' });
+        if (req.body.Name) result.Name = req.body.Name;
+        if (req.body.Cost) result.Cost = req.body.Cost;
+        if (req.body.Weight) result.Weight = req.body.Weight;
+        let res1 = await result.save();
+        console.log("Sucess " + result)
+        res.send(res1)
+    } catch (err) {
         res.status(500)
-        res.send(`{'error': '${err}'}`);
+        res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
     }
 };
 

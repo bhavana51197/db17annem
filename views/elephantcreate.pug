@@ -3,20 +3,20 @@ extends layout
 block content
   h1= title
 
-  form(id='ElephantForm', action="/elephant", method="POST")
+  form(id='elephantForm', action="/resource/elephant", method="POST")
     div.form-group
-        label.elephantLabel(for='elephantname') Elephant Name
+        label.elephantLabel(for='elephantname') elephant Name
         input#elephantname(type='text', name='Name')
     div.form-group
-        label.elephantLabel(for='cost') Elephant Cost
-        input#cost(type='number', name='Cost')
+        label.elephantLabel(for='cost') elephant Cost
+        input#cost(type='number', name='cost')
     div.form-group
-        label.elephantLabel(for='weight') Elephant Weight
+        label.elephantLabel(for='weight') elephant Weight
         input#weight(type='number', name='Weight')
     input.button(type="submit")
 
   script.
-    document.forms['ElephantForm'].addEventListener('submit', (event) => {
+    document.forms['elephantForm'].addEventListener('submit', (event) => {
       event.preventDefault();
       // TODO do something here to show user that form is being submitted
       fetch(event.target.action, {

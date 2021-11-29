@@ -5,31 +5,31 @@ block content
 
   - let elephantid = toShow._id
   - let elephantName = toShow.Name
-  - let elephantCost = toShow.Cost
-  - let elephantWeight = toShow.Weight
+  - let elephantCompany = toShow.Company
+  - let elephantPrice = toShow.Price
   
   div.row(class='mb-2')
     div.mr-1 ID is
     div #{elephantid}
-  - let actionid = "/elephant/" + elephantid
-  form(id='ElephantForm', action= actionid, method="GET")
+  - let actionid = "/resource/elephants/" + elephantid
+  form(id='elephantForm', action= actionid, method="GET")
     div.form-group
-        label.elephantAttr(for='Name') Elephant Name
+        label.elephantAttr(for='Name') elephant Name
         input#elephantname(type='text', name='Name', value= Name )
     div.form-group
-        label.elephantAttr(for='cost') Elephant Cost
-        input#cost(type='number', name='Cost', value= Cost )
+        label.elephantAttr(for='Cost') elephant Cost
+        input#Cost(type='text', name='Cost', value= Cost )
     div.form-group
-        label.elephantAttr(for='weight') Elephant Weight
-        input#weight(type='number', name='Weight', value= Weight )
+        label.elephantAttr(for='Weight') elephant Weight
+        input#Weight(type='number', name='Weight', value= Weight )
     input(type="submit")
 
   script.
-    document.forms['ElephantForm'].addEventListener('submit', (event) => {
+    document.forms['elephantForm'].addEventListener('submit', (event) => {
       event.preventDefault();
       // TODO do something here to show user that form is being submitted
       fetch(event.target.action, {
-        method: 'PUT',
+        method: 'GET',
         body: new URLSearchParams(new FormData(event.target)) // event.target is the form
       }).then((resp) => {
         return resp.json(); // or resp.text() or whatever the server sends
